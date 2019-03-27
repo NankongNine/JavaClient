@@ -7,7 +7,7 @@ import org.nankong.kafka.file.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
+import java.io.File;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -15,16 +15,19 @@ public class JavaProducer {
     public static Logger logger = LoggerFactory.getLogger(JavaProducer.class);
     public static void main(String args[]){
 //        String propName = "producer-first.properties";
-        String propName =args[0];
-        String confName = args[1];
-        String topic = args[2];
+        String krb5conf = "E:/krb5conf/krb5.conf";
+        String propName ="E:/krb5conf/kafka/producer-first-krb5.properties";
+        String confName = "E:/krb5conf/kafka/jaas.conf";
+        String topic = "test";
         Properties props = FileUtil.readProperties(propName);
         if(propName==null) {
             logger.error("配置文件读取失败");
             return;
         }
         FileUtil.setJaasConf(confName);
+        FileUtil.setKrb5Conf(krb5conf);
         sendMsg(props,topic);
+
     }
 
     public static void sendMsg(Properties props,String topic){

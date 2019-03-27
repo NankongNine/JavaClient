@@ -13,8 +13,9 @@ import java.util.Properties;
 public class JavaConsumer {
     public static Logger logger = LoggerFactory.getLogger(JavaConsumer.class);
     public static void main(String args[]){
-        String propName =args[0];
-        String confName = args[1];
+        String krb5conf = "E:/krb5conf/krb5.conf";
+        String propName ="E:/krb5conf/kafka/consumer-first-krb5.properties";
+        String confName = "E:/krb5conf/kafka/jaas.conf";
         String topics = args[2];
         Properties props = FileUtil.readProperties(propName);
         if(propName==null) {
@@ -22,6 +23,7 @@ public class JavaConsumer {
             return;
         }
         FileUtil.setJaasConf(confName);
+        FileUtil.setKrb5Conf(krb5conf);
         fetchMsg(props,topics);
     }
     public static void fetchMsg(Properties props,String topics){
